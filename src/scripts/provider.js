@@ -20,7 +20,7 @@
           additionalClasses: null,
           dismissOnTimeout: true,
           timeout: 4000,
-          dismissButton: false,
+          dismissButton: true,
           dismissButtonHtml: '&times;',
           dismissOnClick: true,
           onDismiss: null,

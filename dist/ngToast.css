@@ -9,8 +9,7 @@
   z-index: 1080;
   width: 100%;
   height: 0;
-  margin-top: 70px;
-  text-align: center; }
+  margin-top: 70px; }
   .ng-toast.ng-toast--top {
     top: 0;
     bottom: auto; }
@@ -32,7 +31,7 @@
   .ng-toast.ng-toast--right .ng-toast__list {
     left: auto;
     right: 0;
-    margin-right: 70px; }
+    margin-right: 20px; }
   .ng-toast.ng-toast--left .ng-toast__list {
     right: auto;
     left: 0;
@@ -50,7 +49,6 @@
   .ng-toast .ng-toast__message {
     display: block;
     width: 100%;
-    text-align: center;
     margin-bottom: 20px; }
     .ng-toast .ng-toast__message .alert {
       display: inline-block; }
