@@ -15,11 +15,12 @@
 
         var defaults = {
           animation: false,
-          className: 'success',
+          className: 'white',
+          iconClass: 'info',
           additionalClasses: null,
           dismissOnTimeout: true,
           timeout: 4000,
-          dismissButton: false,
+          dismissButton: true,
           dismissButtonHtml: '&times;',
           dismissOnClick: true,
           onDismiss: null,
@@ -28,7 +29,7 @@
           horizontalPosition: 'right', // right, center, left
           verticalPosition: 'top', // top, bottom,
           maxNumber: 0,
-          newestOnTop: true
+          newestOnTop: true,
         };
 
         function Message(msg) {
@@ -41,6 +42,7 @@
           this.count = 0;
           this.animation = defaults.animation;
           this.className = defaults.className;
+          this.iconClass = defaults.iconClass;
           this.additionalClasses = defaults.additionalClasses;
           this.dismissOnTimeout = defaults.dismissOnTimeout;
           this.timeout = defaults.timeout;
@@ -60,7 +62,13 @@
         this.$get = [function() {
           var _createWithClassName = function(className, msg) {
             msg = (typeof msg === 'object') ? msg : {content: msg};
-            msg.className = className;
+            var map = {
+              'success': 'check circle green',
+              'danger': 'warning circle red',
+              'warning': 'warning orange',
+              'info': 'info circle blue'
+            }
+            msg.iconClass = map[className]
 
             return this.create(msg);
           };
@@ -150,17 +158,19 @@
           '<li class="ng-toast__message {{message.additionalClasses}}"' +
             'ng-mouseenter="onMouseEnter()"' +
             'ng-mouseleave="onMouseLeave()">' +
-            '<div class="alert alert-{{message.className}}" ' +
-              'ng-class="{\'alert-dismissible\': message.dismissButton}">' +
-              '<button type="button" class="close" ' +
+            '<div class="ui icon {{message.className}} message tiny floating"> ' +
+              '<i class="{{ message.iconClass }} icon"></i>' +
+              '<i class="close icon" ' +
                 'ng-if="message.dismissButton" ' +
-                'ng-bind-html="message.dismissButtonHtml" ' +
                 'ng-click="!message.dismissOnClick && dismiss()">' +
-              '</button>' +
+              '</i>' +
               '<span ng-if="count" class="ng-toast__message__count">' +
                 '{{count + 1}}' +
               '</span>' +
-              '<span ng-if="!message.compileContent" ng-transclude></span>' +
+              '<div class="content">' +
+                '<div class="header" ng-if="message.header">{{ message.header }}</div>' +
+                '<p ng-if="!message.compileContent" ng-transclude></p>' +
+              '</div>' +
             '</div>' +
           '</li>');
       }
