@@ -17,17 +17,19 @@
           '<li class="ng-toast__message {{message.additionalClasses}}"' +
             'ng-mouseenter="onMouseEnter()"' +
             'ng-mouseleave="onMouseLeave()">' +
-            '<div class="alert alert-{{message.className}}" ' +
-              'ng-class="{\'alert-dismissible\': message.dismissButton}">' +
-              '<button type="button" class="close" ' +
+            '<div class="ui icon {{message.className}} message tiny floating"> ' +
+              '<i class="{{ message.iconClass }} icon"></i>' +
+              '<i class="close icon" ' +
                 'ng-if="message.dismissButton" ' +
-                'ng-bind-html="message.dismissButtonHtml" ' +
                 'ng-click="!message.dismissOnClick && dismiss()">' +
-              '</button>' +
+              '</i>' +
               '<span ng-if="count" class="ng-toast__message__count">' +
                 '{{count + 1}}' +
               '</span>' +
-              '<span ng-if="!message.compileContent" ng-transclude></span>' +
+              '<div class="content">' +
+                '<div class="header" ng-if="message.header">{{ message.header }}</div>' +
+                '<p ng-if="!message.compileContent" ng-transclude></p>' +
+              '</div>' +
             '</div>' +
           '</li>');
       }
@@ -134,6 +136,18 @@
           }
         };
       }
+    ]);
+
+})(window, window.angular);
+
+(function(window, angular) {
+  'use strict';
+
+  angular
+    .module('ngToast', [
+      'ngSanitize',
+      'ngToast.directives',
+      'ngToast.provider'
     ]);
 
 })(window, window.angular);
