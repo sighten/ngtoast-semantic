@@ -14,7 +14,7 @@
             messageStack = [];
 
         var defaults = {
-          animation: false,
+          animation: 'fade',
           className: 'white',
           iconClass: 'info',
           additionalClasses: null,
