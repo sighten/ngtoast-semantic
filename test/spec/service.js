@@ -32,35 +32,35 @@ describe('ngToast:', function() {
       ngToast.success('toast1');
       expect(ngToast.messages.length).toBe(1);
       expect(ngToast.messages[0].content).toBe('toast1');
-      expect(ngToast.messages[0].className).toBe('success');
+      expect(ngToast.messages[0].iconClass).toBe('check circle green');
 
       ngToast.success({
         content: 'toast2'
       });
       expect(ngToast.messages.length).toBe(2);
       expect(ngToast.messages[0].content).toBe('toast2');
-      expect(ngToast.messages[0].className).toBe('success');
+      expect(ngToast.messages[0].iconClass).toBe('check circle green');
     });
 
     it('info should work', function () {
       ngToast.info('toast1');
       expect(ngToast.messages.length).toBe(1);
       expect(ngToast.messages[0].content).toBe('toast1');
-      expect(ngToast.messages[0].className).toBe('info');
+      expect(ngToast.messages[0].iconClass).toBe('info circle blue');
     });
 
     it('warning should work', function () {
       ngToast.warning('toast1');
       expect(ngToast.messages.length).toBe(1);
       expect(ngToast.messages[0].content).toBe('toast1');
-      expect(ngToast.messages[0].className).toBe('warning');
+      expect(ngToast.messages[0].iconClass).toBe('warning orange');
     });
 
     it('danger should work', function () {
       ngToast.danger('toast1');
       expect(ngToast.messages.length).toBe(1);
       expect(ngToast.messages[0].content).toBe('toast1');
-      expect(ngToast.messages[0].className).toBe('danger');
+      expect(ngToast.messages[0].iconClass).toBe('warning circle red');
     });
 
     it('should respect to newestOnTop flag', function () {

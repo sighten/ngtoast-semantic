@@ -4,6 +4,12 @@
  * Licensed under MIT (http://tameraydin.mit-license.org/)
  */
 
+/*!
+ * ngToast v2.0.0 (http://tameraydin.github.io/ngToast)
+ * Copyright 2016 Tamer Aydin (http://tamerayd.in)
+ * Licensed under MIT (http://tameraydin.mit-license.org/)
+ */
+
 (function(window, angular, undefined) {
   'use strict';
 
@@ -15,7 +21,8 @@
 
         var defaults = {
           animation: false,
-          className: 'success',
+          className: 'white',
+          iconClass: 'info',
           additionalClasses: null,
           dismissOnTimeout: true,
           timeout: 4000,
@@ -41,6 +48,7 @@
           this.count = 0;
           this.animation = defaults.animation;
           this.className = defaults.className;
+          this.iconClass = defaults.iconClass;
           this.additionalClasses = defaults.additionalClasses;
           this.dismissOnTimeout = defaults.dismissOnTimeout;
           this.timeout = defaults.timeout;
@@ -58,9 +66,17 @@
         };
 
         this.$get = [function() {
-          var _createWithClassName = function(className, msg) {
+          var _createWithIconName = function(iconName, msg) {
             msg = (typeof msg === 'object') ? msg : {content: msg};
-            msg.className = className;
+            
+            var map = {
+              'success': 'check circle green',
+              'danger': 'warning circle red',
+              'warning': 'warning orange',
+              'info': 'info circle blue'
+            };
+
+            msg.iconClass = map[iconName];
 
             return this.create(msg);
           };
@@ -113,16 +129,16 @@
               return newMsg.id;
             },
             success: function(msg) {
-              return _createWithClassName.call(this, 'success', msg);
+              return _createWithIconName.call(this, 'success', msg);
             },
             info: function(msg) {
-              return _createWithClassName.call(this, 'info', msg);
+              return _createWithIconName.call(this, 'info', msg);
             },
             warning: function(msg) {
-              return _createWithClassName.call(this, 'warning', msg);
+              return _createWithIconName.call(this, 'warning', msg);
             },
             danger: function(msg) {
-              return _createWithClassName.call(this, 'danger', msg);
+              return _createWithIconName.call(this, 'danger', msg);
             }
           };
         }];
@@ -130,7 +146,6 @@
     ]);
 
 })(window, window.angular);
-
 (function(window, angular) {
   'use strict';
 
