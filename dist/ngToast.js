@@ -15,12 +15,11 @@
 
         var defaults = {
           animation: false,
-          className: 'white',
-          iconClass: 'info',
+          className: 'success',
           additionalClasses: null,
           dismissOnTimeout: true,
           timeout: 4000,
-          dismissButton: true,
+          dismissButton: false,
           dismissButtonHtml: '&times;',
           dismissOnClick: true,
           onDismiss: null,
@@ -29,7 +28,7 @@
           horizontalPosition: 'right', // right, center, left
           verticalPosition: 'top', // top, bottom,
           maxNumber: 0,
-          newestOnTop: true,
+          newestOnTop: true
         };
 
         function Message(msg) {
@@ -42,7 +41,6 @@
           this.count = 0;
           this.animation = defaults.animation;
           this.className = defaults.className;
-          this.iconClass = defaults.iconClass;
           this.additionalClasses = defaults.additionalClasses;
           this.dismissOnTimeout = defaults.dismissOnTimeout;
           this.timeout = defaults.timeout;
@@ -62,13 +60,7 @@
         this.$get = [function() {
           var _createWithClassName = function(className, msg) {
             msg = (typeof msg === 'object') ? msg : {content: msg};
-            var map = {
-              'success': 'check circle green',
-              'danger': 'warning circle red',
-              'warning': 'warning orange',
-              'info': 'info circle blue'
-            }
-            msg.iconClass = map[className]
+            msg.className = className;
 
             return this.create(msg);
           };
@@ -277,6 +269,18 @@
           }
         };
       }
+    ]);
+
+})(window, window.angular);
+
+(function(window, angular) {
+  'use strict';
+
+  angular
+    .module('ngToast', [
+      'ngSanitize',
+      'ngToast.directives',
+      'ngToast.provider'
     ]);
 
 })(window, window.angular);

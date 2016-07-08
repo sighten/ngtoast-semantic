@@ -56,10 +56,6 @@
       right: 0;
       margin-right: $ngt-spacing;
     }
-
-    .#{$ngt-module}__message {
-      text-align: right;
-    }
   }
 
   &.#{$ngt-module}--left {
@@ -68,10 +64,6 @@
       right: auto;
       left: 0;
       margin-left: $ngt-spacing;
-    }
-
-    .#{$ngt-module}__message {
-      text-align: left;
     }
   }
 
@@ -83,12 +75,15 @@
     margin: 0 auto;
     padding: 0;
     list-style: none;
+    min-width: 300px;
+    max-width: 600px;
   }
 
   .#{$ngt-module}__message {
     display: block;
     width: 100%;
     text-align: center;
+    margin-bottom: 20px;
 
     .alert {
       display: inline-block;
