@@ -56,8 +56,8 @@ describe('ngToast:', function() {
       expect(ngToast.messages[0].iconClass).toBe('warning orange');
     });
 
-    it('danger should work', function () {
-      ngToast.danger('toast1');
+    it('error should work', function () {
+      ngToast.error('toast1');
       expect(ngToast.messages.length).toBe(1);
       expect(ngToast.messages[0].content).toBe('toast1');
       expect(ngToast.messages[0].iconClass).toBe('warning circle red');

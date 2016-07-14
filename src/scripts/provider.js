@@ -65,9 +65,10 @@
             
             var map = {
               'success': 'check circle green',
-              'danger': 'warning circle red',
+              'error': 'warning circle red',
               'warning': 'warning orange',
-              'info': 'info circle blue'
+              'info': 'info circle blue',
+              'loading': 'circle notched loading blue'
             };
 
             msg.iconClass = map[iconName];
@@ -131,8 +132,11 @@
             warning: function(msg) {
               return _createWithIconName.call(this, 'warning', msg);
             },
-            danger: function(msg) {
-              return _createWithIconName.call(this, 'danger', msg);
+            error: function(msg) {
+              return _createWithIconName.call(this, 'error', msg);
+            },
+            loading: function(msg) {
+              return _createWithIconName.call(this, 'loading', msg);
             }
           };
         }];
