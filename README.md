@@ -1,33 +1,25 @@
 ngToast [![Code Climate](http://img.shields.io/codeclimate/github/tameraydin/ngToast.svg?style=flat-square)](https://codeclimate.com/github/tameraydin/ngToast/dist/ngToast.js) [![Build Status](http://img.shields.io/travis/tameraydin/ngToast/master.svg?style=flat-square)](https://travis-ci.org/tameraydin/ngToast)
 =======
 
-ngToast is a simple Angular provider for toast notifications.
+ngtoast-semantic is a modified version of [ngToast](https://github.com/tameraydin/ngToast) with customized styling for [SemanticUI](http://semantic-ui.com/)
 
 **[Demo](http://tameraydin.github.io/ngToast)**
 
 ## Usage
 
-1. Install via [Bower](http://bower.io/) or [NPM](http://www.npmjs.org):
-  ```bash
-  bower install ngtoast --production
-  # or
-  npm install ng-toast --production
+1. Installed via [NPM](http://www.npmjs.org):
+  Included as a depency in `clint/ui/package.json`
+  ```"ng-toast": "sighten/ngtoast-semantic",
   ```
-  or manually [download](https://github.com/tameraydin/ngToast/archive/master.zip).
 
-2. Include ngToast source files and dependencies ([ngSanitize](http://docs.angularjs.org/api/ngSanitize), [Bootstrap CSS](http://getbootstrap.com/)):
-  ```html
-  <link rel="stylesheet" href="bower/bootstrap/dist/css/bootstrap.min.css">
-  <link rel="stylesheet" href="bower/ngtoast/dist/ngToast.min.css">
-  
-  <script src="bower/angular-sanitize/angular-sanitize.min.js"></script>
-  <script src="bower/ngtoast/dist/ngToast.min.js"></script>
-  ```
- *Note: only the [Alerts](http://getbootstrap.com/components/#alerts) component is used as style base, so you don't have to include complete CSS*
-
-3. Include ngToast as a dependency in your application module:
+2. Included as a dependency in your application module (`clint/ui/src/app.js`:
   ```javascript
-  var app = angular.module('myApp', ['ngToast']);
+  import 'ng-toast'
+  angular.module('hyper-gen', [
+    ...
+    'ngSanitize',
+    'ngAnimate',
+    'ngToast'
   ```
 
 4. Place `toast` element into your HTML:
@@ -40,80 +32,101 @@ ngToast is a simple Angular provider for toast notifications.
 
 5. Inject ngToast provider in your controller:
   ```javascript
-  app.controller('myCtrl', function(ngToast) {
-    ngToast.create('a toast message...');
-  });
+  class MyController {
+    constructor(ngToast) {
+      'ngInject'
+
+      ngToast.create({'Here is an example message'})
+    }
+  }
   // for more info: http://tameraydin.github.io/ngToast/#api
   ```
 
-## Animations
-ngToast comes with optional animations. In order to enable animations in ngToast, you need to include [ngAnimate](http://docs.angularjs.org/api/ngAnimate) module into your app:
+## Usage
+ngtoast-semantic has been customized for use with SemanticUi's [Messages](http://semantic-ui.com/collections/message.html)
 
-```html
-<script src="bower/angular-animate/angular-animate.min.js"></script>
+**Types**
+To create a message of a varrying type, simply use as the create function:
+```javascript
+ngToast.success({'Success (green) message!'})
+ngToast.error({'Error (red) message!'})
+ngToast.warning({'Warning (orange) message!'})
+ngToast.info({'Info (blue) message!'})
 ```
 
+**Semantic-specific Customization**
+ngtoast-semantic has been set up to accept an optional **header** and **iconClass** with any of SemanticUI's [icons](http://semantic-ui.com/elements/icon.html) available
+```javascript
+ngToast.success({
+  header: 'Good Job!', // optional (but encouraged!)
+  content: 'You got a success message!'
+})
+ngToast.create({
+  iconClass: 'birthday purple',
+  content: 'Purple Birthday message'
+})
+```
+
+**Defaults**
+ng-toast-semantic defaults have been set up in `src/provider.js` as such:
+* Note default timeout is **4 seconds** for all messages
+```javascript
+var defaults = {
+  animation: 'fade',
+  className: 'white',
+  iconClass: 'info',
+  additionalClasses: null,
+  dismissOnTimeout: true,
+  timeout: 4000,
+  dismissButton: true,
+  dismissButtonHtml: '&times;',
+  dismissOnClick: true,
+  onDismiss: null,
+  compileContent: false,
+  combineDuplications: false,
+  horizontalPosition: 'right', // right, center, left
+  verticalPosition: 'top', // top, bottom,
+  maxNumber: 0,
+  newestOnTop: true
+};
+```
+
+**Additional Customization**
+In addition to the Semantic-specific customization, you can always override defaults by using any of the parameters above and from [ngToast](http://tamerayd.in/ngToast/)
+
+**Recommended**
+To conform uniformly, please adhere to these principals:
+- Make use of `header: ` in addition to `content: ` *- Nice UX*
+- Use type creation for most (if not all messages) *- Consistency*
+- Avoid overriding defaults unless necessary/appropriate
+
+## CSS/Animations
+ngToast comes with optional animations, which we have used with ngtoast-semantic
+
 **Built-in**
-  1. Include the ngToast animation stylesheet:
+  1. Included the ngToast animation stylesheet:
   
-  ```html
-  <link rel="stylesheet" href="bower/ngtoast/dist/ngToast-animations.min.css">
+  in `clint/src/core/core.styl`
+  ```css
+  @require '../node_modules/ng-toast/dist/ngToast.css'
+  @require '../node_modules/ng-toast/dist/ngToast-animations.css'
   ```
 
-  2. Set the `animation` option.
+  2. Animation is defaulted to `'fade'`.
   ```javascript
-  app.config(['ngToastProvider', function(ngToastProvider) {
-    ngToastProvider.configure({
-      animation: 'slide' // or 'fade'
-    });
-  }]);
+  var defaults = {
+    animation: 'fade',
+    ...
   ```
   Built-in ngToast animations include `slide` & `fade`.
   
-**Custom**
-  
-  See the [plunker](http://plnkr.co/edit/wglAvsCuTLLykLNqVGwU) using [animate.css](http://daneden.github.io/animate.css/).
-  
-  1. Using the `additionalClasses` option and [ngAnimate](http://docs.angularjs.org/api/ngAnimate) you can easily add your own animations or wire up 3rd party css animations.
-  ```javascript
-  app.config(['ngToastProvider', function(ngToastProvider) {
-    ngToastProvider.configure({
-      additionalClasses: 'my-animation'
-    });
-  }]);
-  ```
-
-  2. Then in your CSS (example using animate.css):
-  ```css
-  /* Add any vendor prefixes you need */
-  .my-animation.ng-enter {
-    animation: flipInY 1s;
-  }
-  
-  .my-animation.ng-leave {
-    animation: flipOutY 1s;
-  }
-  ```
-
-## Settings & API
-
-Please find at the [project website](http://tameraydin.github.io/ngToast/#api).
 
 ## Development
 
-* Clone the repo or [download](https://github.com/tameraydin/ngToast/archive/master.zip)
+* Branch off of ``master``
 * Install dependencies: ``npm install && bower install``
-* Run ``grunt watch``, play on **/src**
 * Build: ``grunt``
-
-## License
-
-MIT [http://tameraydin.mit-license.org/](http://tameraydin.mit-license.org/)
-
-## Maintainers
-
-- [Tamer Aydin](http://tamerayd.in)
-- [Levi Thomason](http://www.levithomason.com)
+* PR in to ``master``
 
 ## TODO
-- Add more unit & e2e tests
+- Additional Customization of the `loading` message for dismissal/timeout overrides
