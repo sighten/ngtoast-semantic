@@ -1,4 +1,4 @@
-ngToast [![Code Climate](http://img.shields.io/codeclimate/github/tameraydin/ngToast.svg?style=flat-square)](https://codeclimate.com/github/tameraydin/ngToast/dist/ngToast.js) [![Build Status](http://img.shields.io/travis/tameraydin/ngToast/master.svg?style=flat-square)](https://travis-ci.org/tameraydin/ngToast)
+ngtoast-semantic [![Code Climate](http://img.shields.io/codeclimate/github/tameraydin/ngToast.svg?style=flat-square)](https://codeclimate.com/github/sighten/ngtoast-semantic/dist/ngToast.js) [![Build Status](http://img.shields.io/travis/sighten/ngtoast-semantic/master.svg?style=flat-square)](https://travis-ci.org/sighten/ngtoast-semantic)
 =======
 
 ngtoast-semantic is a modified version of [ngToast](https://github.com/tameraydin/ngToast) with customized styling for [SemanticUI](http://semantic-ui.com/)
@@ -8,11 +8,12 @@ ngtoast-semantic is a modified version of [ngToast](https://github.com/tameraydi
 ## Usage
 
 1. Installed via [NPM](http://www.npmjs.org):
-  Included as a depency in `clint/ui/package.json`
-  ```"ng-toast": "sighten/ngtoast-semantic",
+  Included as a depency in Clint (`clint/ui/package.json`)
+  ```
+  "ng-toast": "sighten/ngtoast-semantic",
   ```
 
-2. Included as a dependency in your application module (`clint/ui/src/app.js`:
+2. Included as a dependency in Clint (`clint/ui/src/app.js`):
   ```javascript
   import 'ng-toast'
   angular.module('hyper-gen', [
@@ -22,7 +23,7 @@ ngtoast-semantic is a modified version of [ngToast](https://github.com/tameraydi
     'ngToast'
   ```
 
-4. Place `toast` element into your HTML:
+4. Placed `toast` element into HTML (`clint/ui/src/components/home/home.html`):
   ```html
   <body>
     <toast></toast>
