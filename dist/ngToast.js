@@ -1,6 +1,6 @@
 /*!
  * ngToast v2.0.0 (http://tameraydin.github.io/ngToast)
- * Copyright 2016 Tamer Aydin (http://tamerayd.in)
+ * Copyright 2017 Tamer Aydin (http://tamerayd.in)
  * Licensed under MIT (http://tameraydin.mit-license.org/)
  */
 
@@ -25,10 +25,10 @@
           iconClass: 'info',
           additionalClasses: null,
           dismissOnTimeout: true,
-          timeout: 4000,
+          timeout: 5000,
           dismissButton: true,
           dismissButtonHtml: '&times;',
-          dismissOnClick: true,
+          dismissOnClick: false,
           onDismiss: null,
           compileContent: false,
           combineDuplications: false,
@@ -66,18 +66,38 @@
         };
 
         this.$get = [function() {
-          var _createWithIconName = function(iconName, msg) {
+          var _createWithType = function(type, msg) {
             msg = (typeof msg === 'object') ? msg : {content: msg};
             
             var map = {
-              'success': 'check circle green',
-              'error': 'warning circle red',
-              'warning': 'warning orange',
-              'info': 'info circle blue',
-              'loading': 'circle notched loading blue'
+              'success': {
+                color: 'green',
+                icon: 'check circle',
+              },
+              'error': {
+                color: 'red',
+                icon: 'warning circle',
+              },
+              'warning': {
+                color: 'yellow',
+                icon: 'warning',
+              },
+              'info': {
+                color: 'blue',
+                icon: 'info circle',
+              },
+              'loading': {
+                color: 'blue',
+                icon: 'circle notched loading'
+              },
             };
 
-            msg.iconClass = map[iconName];
+            msg.className = map[type].color;
+            msg.iconClass = map[type].icon;
+            
+            if (type === 'error') {
+              msg.dismissOnTimeout = false;
+            }
 
             return this.create(msg);
           };
@@ -130,19 +150,19 @@
               return newMsg.id;
             },
             success: function(msg) {
-              return _createWithIconName.call(this, 'success', msg);
+              return _createWithType.call(this, 'success', msg);
             },
             info: function(msg) {
-              return _createWithIconName.call(this, 'info', msg);
+              return _createWithType.call(this, 'info', msg);
             },
             warning: function(msg) {
-              return _createWithIconName.call(this, 'warning', msg);
+              return _createWithType.call(this, 'warning', msg);
             },
             error: function(msg) {
-              return _createWithIconName.call(this, 'error', msg);
+              return _createWithType.call(this, 'error', msg);
             },
             loading: function(msg) {
-              return _createWithIconName.call(this, 'loading', msg);
+              return _createWithType.call(this, 'loading', msg);
             }
           };
         }];
@@ -150,6 +170,7 @@
     ]);
 
 })(window, window.angular);
+
 (function(window, angular) {
   'use strict';
 
@@ -169,7 +190,7 @@
           '<li class="ng-toast__message {{message.additionalClasses}}"' +
             'ng-mouseenter="onMouseEnter()"' +
             'ng-mouseleave="onMouseLeave()">' +
-            '<div class="ui icon {{message.className}} message tiny floating"> ' +
+            '<div class="ui icon {{ message.className }} message tiny floating"> ' +
               '<i class="{{ message.iconClass }} icon"></i>' +
               '<i class="close icon" ' +
                 'ng-if="message.dismissButton" ' +

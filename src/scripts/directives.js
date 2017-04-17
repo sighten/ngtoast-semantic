@@ -17,7 +17,7 @@
           '<li class="ng-toast__message {{message.additionalClasses}}"' +
             'ng-mouseenter="onMouseEnter()"' +
             'ng-mouseleave="onMouseLeave()">' +
-            '<div class="ui icon {{message.className}} message tiny floating"> ' +
+            '<div class="ui icon {{ message.className }} message tiny floating"> ' +
               '<i class="{{ message.iconClass }} icon"></i>' +
               '<i class="close icon" ' +
                 'ng-if="message.dismissButton" ' +

@@ -1,15 +1,15 @@
 /*!
  * ngToast v2.0.0 (http://tameraydin.github.io/ngToast)
- * Copyright 2016 Tamer Aydin (http://tamerayd.in)
+ * Copyright 2017 Tamer Aydin (http://tamerayd.in)
  * Licensed under MIT (http://tameraydin.mit-license.org/)
  */
 
 .ng-toast {
-  position: fixed;
+  position: absolute;
   z-index: 1080;
   width: 100%;
   height: 0;
-  margin-top: 70px; }
+  margin-top: 20px; }
   .ng-toast.ng-toast--top {
     top: 0;
     bottom: auto; }
@@ -35,7 +35,7 @@
   .ng-toast.ng-toast--left .ng-toast__list {
     right: auto;
     left: 0;
-    margin-left: 70px; }
+    margin-left: 20px; }
   .ng-toast .ng-toast__list {
     display: inline-block;
     position: absolute;
@@ -54,4 +54,4 @@
       display: inline-block; }
   .ng-toast .ng-toast__message__count {
     display: inline-block;
-    margin: 0 52.5px 0 17.5px; }
+    margin: 0 15px 0 5px; }
