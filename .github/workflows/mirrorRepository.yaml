@@ -1,0 +1,16 @@
+name: Mirror Repository
+
+on: [push, delete]
+
+concurrency: mirror
+
+jobs:
+  mirror:
+    runs-on: ubuntu-latest
+    if: startsWith(github.repository, 'sighten')
+    name: mirror
+    steps:
+      - uses: sighten/mirror-repo-action@v1
+        with:
+          destinationRepo: NextEraEnergy/yp781-ngtoast
+          destinationSSHKey: ${{ secrets.NEXTERA_MIRROR_KEY  }}
